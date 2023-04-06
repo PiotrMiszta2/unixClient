@@ -3,4 +3,4 @@ project(client C)
 
 set(CMAKE_C_STANDARD 17)
 
-add_executable(client main.c)
+add_executable(client src/main.c)
