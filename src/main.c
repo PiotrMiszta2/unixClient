@@ -3,47 +3,62 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <string.h>
+#include "messages.h"
+#include "connection.h"
+char temp[] =   "Unix client console version\n" \
+                "-h HELP";
+
+static int parse_msg(void) {
+    char buff[1024];
+    while(1) {
+        printf("$ ");
+        fgets(buff, 1024, stdin);
+        if(strcmp(buff, "-h\n") == 0) {
+            printf("Unix client console version\n");
+        }
+        else if(strcmp(buff, "ld2\n") == 0) {
+            return 1;
+        }
+        else if(strcmp(buff, "-q\n") == 0) {
+            return -3;
+        }
+        else {
+            printf("Usage: -h\n");
+        }
+    }
+
+}
+
 
 int main(int argc, char ** argv)
 {
-    int port = 8080;
-    int sock = -1;
-    struct sockaddr_in address;
-    struct hostent * host;
-    int len;
-    /* create socket */
-    sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (sock <= 0)
-    {
-        fprintf(stderr, "%s: error: cannot create socket\n", argv[0]);
-        return -3;
+    logger_init_full("logger.txt", "client", 1.0,
+        "Piotr", "Miszta", "wrx85588@student.wsb.wroclaw.pl");
+    int sock = connection_connect();
+    if(sock > 0) {
+        LOG_INFO("Connected to server");
+    }
+    else {
+        LOG_ERROR("Unable to connect abort()");
+        abort();
     }
 
-    /* connect to server */
-    address.sin_family = AF_INET;
-    address.sin_port = htons(port);
-    host = gethostbyname("127.0.0.1");
-    memcpy(&address.sin_addr, host->h_addr_list[0], host->h_length);
-    if (connect(sock, (struct sockaddr *)&address, sizeof(address)))
-    {
-        fprintf(stderr, "error: cannot connect to host \n");
-        return -5;
+    while(1) {
+        switch(parse_msg()) {
+            case 1:
+                MessageMicroReqS* msg_req = message_micro_req_create(MESSAGE_MICRO_REQ_TYPE_LD2,
+                MESSAGE_MICRO_REQ_MICRO_TYPE_ARDUINO);
+                MessageS* msg =  message_create_micro_req_create(msg_req);
+                MessageCharS* buff = message_create_char(msg);
+                write(sock, &buff->len, sizeof(int));
+                write(sock, buff->msg, buff->len);
+                break;
+            case -3:
+                return 0;
+                break;
+        }
     }
-
-    /* send text to server */
-    char buff[] = "Testowy message";
-    len = strlen(buff);
-
-    while(1)
-    {
-        write(sock, &len, sizeof(int));
-        write(sock, buff, len);
-        sleep(1);
-    }
-
-
-    /* close socket */
     close(sock);
-
+    logger_close();
     return 0;
 }
