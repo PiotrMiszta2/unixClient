@@ -50,9 +50,9 @@ CMakeFiles/client.dir/src/messages/messages_micro_req.c.o: \
  /usr/include/bits/pthread_stack_min.h /usr/include/semaphore.h \
  /usr/include/bits/semaphore.h \
  /home/Piotr/projects/unixclient/include/messages/messages_micro.h \
- /usr/include/assert.h \
  /usr/lib/gcc/x86_64-redhat-linux/12/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/wchar.h \
  /usr/include/bits/stdint-uintn.h \
  /home/Piotr/projects/unixclient/include/messages/messages_micro_rej.h \
- /home/Piotr/projects/unixclient/include/messages/messages_micro_cfm.h
+ /home/Piotr/projects/unixclient/include/messages/messages_micro_cfm.h \
+ /usr/include/assert.h

@@ -64,7 +64,6 @@ CMakeFiles/client.dir/src/main.c.o: \
  /usr/include/bits/pthread_stack_min.h /usr/include/semaphore.h \
  /usr/include/bits/semaphore.h \
  /home/Piotr/projects/unixclient/include/messages/messages_micro.h \
- /usr/include/assert.h \
  /usr/lib/gcc/x86_64-redhat-linux/12/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/wchar.h \
  /home/Piotr/projects/unixclient/include/messages/messages_micro_rej.h \

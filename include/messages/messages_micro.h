@@ -11,10 +11,8 @@
  *
  **********************************************************************************************************************/
 
-
+/*NOTE: this file need to be split with stm32 and arduino bcs of integers from enum*/
 /* INCLUDES ***********************************************************************************************************/
-#include "util.h"
-#include <assert.h>
 /* Definitions ********************************************************************************************************/
 #define MESSAGE_MICRO_REQ_CONFIRM_VALUE     (98)
 #define MESSAGE_MICRO_REJ_CONFIRM_VALUE     (99)
@@ -26,8 +24,12 @@ typedef enum MessageMicroReqTypeE
     //TODO:think about it
     MESSAGE_MICRO_REQ_TYPE_LD1,
     MESSAGE_MICRO_REQ_TYPE_LD2,
-
+	MESSAGE_MICRO_REQ_TYPE_IM1,
+	MESSAGE_MICRO_REQ_TYPE_IM2,
+	MESSAGE_MICRO_REQ_TYPE_IM3,
+	MESSAGE_MICRO_REQ_TYPE_GT,
 }MessageMicroReqTypeE;
+
 typedef enum MessageMicroReqMicroTypeE
 {
     MESSAGE_MICRO_REQ_MICRO_TYPE_STM32,
