@@ -6,15 +6,21 @@
 #include "messages.h"
 #include "connection.h"
 char temp[] =   "Unix client console version\n" \
-                "-h HELP";
+                "-h HELP\n"   \
+                "ld1 - zapala diode\n"
+                "ld2 - gasi diode\n"
+                "im1 - wyswietla zielone tlo\n"
+                "im2 - wysiwetla biale tlo\n"
+                "im3 - wyswietla czarne tlo\n"
+                "gt  - wyswietla temperature\n";
 
 static int parse_msg(void) {
     char buff[1024];
     while(1) {
         printf("$ ");
         scanf("%s", buff);
-        if(strcmp(buff, "-h\n") == 0) {
-            printf("Unix client console version\n");
+        if(strcmp(buff, "-h") == 0) {
+            printf("%s", temp);
         }
         else if(strcmp(buff, "ld1") == 0) {
             return 0;
@@ -47,9 +53,13 @@ static int parse_msg(void) {
 
 int main(int argc, char ** argv)
 {
+    if(argc < 2) {
+        printf("Bad number oif args\n Use ./client <addressip>\n");
+        exit(EXIT_FAILURE);
+    }
     logger_init_full("logger.txt", "client", 1.0,
         "Piotr", "Miszta", "wrx85588@student.wsb.wroclaw.pl");
-    int sock = connection_connect();
+    int sock = connection_connect(argv[1]);
     if(sock > 0) {
         LOG_INFO("Connected to server");
     }

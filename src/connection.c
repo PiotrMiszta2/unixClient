@@ -9,7 +9,7 @@
 #define PORT            8080
 #define HOST            "127.0.0.1"
 
-int connection_connect(void) {
+int connection_connect(const char* ip) {
     int sock = -1;
     struct sockaddr_in address;
     struct hostent* host;
@@ -21,7 +21,7 @@ int connection_connect(void) {
 
     address.sin_family = AF_INET;
     address.sin_port = htons(PORT);
-    host = gethostbyname("127.0.0.1");
+    host = gethostbyname(ip);
 
     memcpy(&address.sin_addr, host->h_addr_list[0], host->h_length);
     if (connect(sock, (struct sockaddr *)&address, sizeof(address))) {
