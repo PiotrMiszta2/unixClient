@@ -1,3 +1,0 @@
-/home/Piotr/projects/unixclient/build/CMakeFiles/client.dir
-/home/Piotr/projects/unixclient/build/CMakeFiles/edit_cache.dir
-/home/Piotr/projects/unixclient/build/CMakeFiles/rebuild_cache.dir

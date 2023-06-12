@@ -57,8 +57,7 @@ int main(int argc, char ** argv)
         printf("Bad number oif args\n Use ./client <addressip>\n");
         exit(EXIT_FAILURE);
     }
-    logger_init_full("logger.txt", "client", 1.0,
-        "Piotr", "Miszta", "wrx85588@student.wsb.wroclaw.pl");
+    logger_init("logger.txt");
     int sock = connection_connect(argv[1]);
     if(sock > 0) {
         LOG_INFO("Connected to server");
