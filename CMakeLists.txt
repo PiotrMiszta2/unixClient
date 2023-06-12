@@ -12,4 +12,3 @@ include_directories(${CMAKE_SOURCE_DIR}/include/messages/
                     ${CMAKE_SOURCE_DIR}/include )
 
 add_executable(client src/main.c src/connection.c ${message} ${util})
-target_link_libraries(client logger)
